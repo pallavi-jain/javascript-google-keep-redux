@@ -6,6 +6,7 @@ import {store} from '../index';
 export function renderCards(){
     let currentState = store.getState();
     let myCards = currentState.cards;
+    $('#cardList').empty();
     for (let index = 0; index < myCards.length; index++) {
         const card = myCards[index];
         //cardListData[card.id] = card;
@@ -13,27 +14,26 @@ export function renderCards(){
         cardsData[card.id] = card;
     }
 
-    console.log(store.getState())
 }
 
 
 
 export function addCard(cardData) {   
 
-    var cardId = cardData.id;
+    let cardId = cardData.id;
     
-    var cardHolder = document.getElementById('cardList');
-    var card = document.createElement('div');
-    var id = 'card_' + cardId;
+    let cardHolder = document.getElementById('cardList');
+    let card = document.createElement('div');
+    let id = 'card_' + cardId;
     card.setAttribute('id', cardId);
     card.className = 'card';
-    var cardBody = document.createElement('div');
+    let cardBody = document.createElement('div');
     cardBody.className = 'card-body';
     cardBody.setAttribute('id', 'card-body_' + cardId);
     card.appendChild(cardBody);
-    var editId = 'card-edit_' + cardId;
-    var deleteId = 'card-delete_' + cardId;
-    var headerStr = `<div class="container">
+    let editId = 'card-edit_' + cardId;
+    let deleteId = 'card-delete_' + cardId;
+    let headerStr = `<div class="container">
                         <div class="row">
                             <div class="col-md-9">
                                 <h5>${cardData.card.name}</h5>
@@ -48,9 +48,9 @@ export function addCard(cardData) {
                         </div>`;
     $(cardBody).append(headerStr);
 
-    var todoList = document.createElement('ul');
+    let todoList = document.createElement('ul');
     cardBody.appendChild(todoList);
-    var task = cardData.card.data;
+    let task = cardData.card.data;
 
     for (let index = 0; index < task.length; index++) {
         const element = task[index];
@@ -92,12 +92,14 @@ export function addCard(cardData) {
 export var cardsData = {};
 
 $( "#cardList" ).on( "sortstop", function( event, ui ) {
-
+    
+    let listArr = [];
     $("#cardList .card").each(function (index) {
         cardsData[$(this).attr('id')].card.order = index+1;
         let cardObj = cardsData[$(this).attr('id')];
+        listArr.push(cardObj);
         saveCardState.saveCardState($(this).attr('id'), cardObj);
     });
-    
+    store.dispatch({type: 'REORDER_CARDS', card:listArr});
 } );
 

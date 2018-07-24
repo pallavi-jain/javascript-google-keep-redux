@@ -5,15 +5,15 @@ import * as getCardsService from '../service/getCards';
 import {store} from '../index';
 
 $('#addNewItem').click(onAddBtnClick);
-var editModeId;
-var editMode = false;
+let editModeId;
+let editMode = false;
 let timeStampObj = {};
 export function onAddBtnClick() {
 
-    var itemIndex = $("ul#taskList-ul").children().length + 1;
-    var taskItem = $('#addItem').val().trim();
+    let itemIndex = $("ul#taskList-ul").children().length + 1;
+    let taskItem = $('#addItem').val().trim();
     if (taskItem) {
-        var task_li_str;
+        let task_li_str;
         if (!editMode) {
             let removeItem = 'removeBtn_' + itemIndex;
             let taskId = 'task_' + itemIndex;
@@ -48,12 +48,13 @@ export function onAddBtnClick() {
 }
 
 export function onSaveNewCardBtnClick() {
-    var cardInfo = {};
+    let cardInfo = {};
     cardInfo.date = Date.now();
 
     cardInfo.name = $('#todoListTitle').val().trim();
     cardInfo.data = [];
-
+    let cardWrap = {};
+    
     if (!editMode) {
         $("ul#taskList-ul li").each(function (index) {
             let taskObj = {};
@@ -82,17 +83,24 @@ export function onSaveNewCardBtnClick() {
             taskObj.taskName = String($('#' + inputId).val()).trim();
             cardInfo.data.push(taskObj);
             cardInfo.edited = true;
+            cardWrap.id = Number(splitStr[0]);
         });
     }
-    let cardWrap = {};
+    
     cardWrap.card = cardInfo;
     let state = store.getState();
-    let cardId = state.cards.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1;
-    cardWrap.id = cardId;
-    $('#cardList').empty();
-    store.dispatch({type: 'ADD_CARD', card:cardWrap});
-
     
+    $('#cardList').empty();
+    
+    if(!editMode){
+        let cardId = state.cards.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1;
+        cardWrap.id = cardId;
+        store.dispatch({type: 'ADD_CARD', card:cardWrap});   
+    }else{
+        store.dispatch({type: 'EDIT_CARD', card:cardWrap});
+    }
+    getCardsService.cardListData[cardWrap.id] = cardWrap;
+
     todoListModalService.addCardData(cardInfo, onDataSave, editModeId);
 }
 
@@ -106,11 +114,11 @@ export function openEditModal(index) {
     for (let i = 0; i < cardInfo.card.data.length; i++) {
         const element = cardInfo.card.data[i];
         var liId = 'li_' + index + '_' + i;
-        var inputId = 'input_' + index + '_' + i;
-        var checkId = 'check_' + index + '_' + i;
-        var isChecked = element.checked ? 'checked' : '';
-        var removeItem = 'removeBtn_' + index + '_' + i;
-        var task_li_str = `<li class="mb-2 ml-4" id="${liId}" data-createDate="${element.date}">
+        let inputId = 'input_' + index + '_' + i;
+        let checkId = 'check_' + index + '_' + i;
+        let isChecked = element.checked ? 'checked' : '';
+        let removeItem = 'removeBtn_' + index + '_' + i;
+        let task_li_str = `<li class="mb-2 ml-4" id="${liId}" data-createDate="${element.date}">
                             <div class="row">
                             <div class="col-md-11">
                                 <input type="checkbox" id="${checkId}" ${isChecked} class="form-check-input mt-3 checkboxPopup">

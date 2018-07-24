@@ -2,7 +2,7 @@
   
   
   export default function cards(state =[], action) {
-    let newState;  
+    let newState = [];  
     switch (action.type) {
 
         case 'ADD_CARD':
@@ -11,12 +11,17 @@
 
         case 'DELETE_CARD':
             return state.filter(card =>
-                    card.id !== action.id
-      )
+                    card.id !== action.id);
 
         case 'EDIT_CARD':
-            return state
-
+             return state.map((card) => 
+             card.id === action.card.id ?  action.card  : card);
+             
+        case 'REORDER_CARDS':
+            newState = [];
+            let tmp = newState.concat(state);
+             return tmp.sort((a, b) => a.card.order - b.card.order);
+             
         default:
             return state;
     }
