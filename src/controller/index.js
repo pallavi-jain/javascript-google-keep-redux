@@ -1,0 +1,1 @@
+import {addCard} from './card';

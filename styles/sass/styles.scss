@@ -1,0 +1,35 @@
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+#addListCardModal .modal-body {
+    max-height: 60vh;
+    overflow:auto;
+    }
+
+.task{
+    width: 90%;
+    display: inline-block;
+}
+
+.text-muted{
+    font-size: 0.6rem;
+
+}
+
+#taskList-ul .row{
+    flex-wrap: nowrap;
+}
+
+@media (max-width: 770px) {
+    .modalInput{
+        min-width: 250px;
+    }
+
+}
+
+@media (max-width: 320px) {
+    .modalInput{
+        min-width: 210px;
+    }
+
+}
