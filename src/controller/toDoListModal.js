@@ -1,4 +1,4 @@
-let $ = require('jquery');
+import $ from "jquery";
 
 require('jquery-ui');
 import * as todoListModalService from '../service/toDoListModalService';

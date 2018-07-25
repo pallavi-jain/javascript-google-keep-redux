@@ -1,5 +1,4 @@
-const $ = require('jquery');
-
+import $ from "jquery";
 import {openEditModal, openConfirmation} from './toDoListModal';
 import * as saveCardState from '../service/saveCardState';
 import {store} from '../index';
