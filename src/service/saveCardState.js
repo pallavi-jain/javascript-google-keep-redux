@@ -12,7 +12,7 @@ export function saveCardState(id, cardInfo) {
     const type = "PUT",
      url = `http://localhost:3000/lists/${id}`;
 
-    $.ajax({
+     $.ajax({
         url,
         type,
         "data": JSON.stringify(cardInfo),

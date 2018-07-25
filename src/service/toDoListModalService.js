@@ -1,5 +1,11 @@
 import $ from "jquery";
 
+/**
+ * Save the card data.
+ * @param {object} cardObj The first number.
+ * @param {object} callback/Info The second number.
+ * @param {int} id sum of the two numbers.
+ */
 export function addCardData(cardObj, callback, id) {
 
 
@@ -7,8 +13,9 @@ export function addCardData(cardObj, callback, id) {
      url = "http://localhost:3000/lists";
 
     if (id) {
-        url = `http://localhost:3000/lists/${id}`;
         type = "PATCH";
+        url = `http://localhost:3000/lists/${id}`;
+        
     }
 
     $.ajax({
@@ -21,6 +28,13 @@ export function addCardData(cardObj, callback, id) {
            
             
           },
+
+          /**
+         * Success callback.
+         * @param {object} result The first number.
+         * @param {object} callback/Info The second number.
+         * 
+         */
         "success"(result) {
         // Write your code here
         callback(result);
@@ -29,7 +43,7 @@ export function addCardData(cardObj, callback, id) {
 }
 
 export function deleteCardData(callback, id) {
-    let type = 'DELETE',
+    const type = 'DELETE',
      url = `http://localhost:3000/lists/${id}`;
 
     $.ajax({

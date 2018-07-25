@@ -1,14 +1,14 @@
-
-
+import $ from 'jquery';
 import {store} from '../index';
-export var cardListData = {};
-export var totalCards = 0;
+export const cardListData = {};
+export let totalCards = 0;
 export function getCards() {
 
-    $.get("http://localhost:3000/lists", function(data, status) {
+    $.get("http://localhost:3000/lists", function(data) {
         
         const myLists = data;
 
+       
         $('#cardList').empty();
         totalCards = myLists.length;
         myLists.sort(function (a, b) {

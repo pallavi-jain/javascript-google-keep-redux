@@ -16,11 +16,11 @@
              return state.map((card) => card.id === action.card.id ? action.card : card);
              
         case 'REORDER_CARDS':
-            newState = [];
-            const tmp = newState.concat(state);
+            
+            newState = newState.concat(state);
 
              
-return tmp.sort((a, b) => a.card.order - b.card.order);
+return newState.sort((a, b) => a.card.order - b.card.order);
              
         default:
             return state;

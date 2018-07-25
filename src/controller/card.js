@@ -24,8 +24,7 @@ export function addCard(cardData) {
     const cardId = cardData.id,
     
      cardHolder = document.getElementById('cardList'),
-     card = document.createElement('div'),
-     id = `card_${cardId}`;
+     card = document.createElement('div');
 
     card.setAttribute('id', cardId);
     card.className = 'card';
@@ -70,7 +69,7 @@ export function addCard(cardData) {
 
     const editBtnId = `card-edit_${cardId}`;
 
-    $(document).on("click", `a#${editBtnId}`, function (e) {
+    $(document).on("click", `a#${editBtnId}`, function () {
         const editId = $(this).attr('id'),
          index = editId.split('_')[1];
 
@@ -79,7 +78,7 @@ export function addCard(cardData) {
 
     const deleteBtnId = `card-delete_${cardId}`;
 
-    $(document).on("click", `a#${deleteBtnId}`, function (e) {
+    $(document).on("click", `a#${deleteBtnId}`, function () {
         const deleteId = $(this).attr('id'),
          index = deleteId.split('_')[1];
 
@@ -87,7 +86,7 @@ export function addCard(cardData) {
     });
 }
 
-$( "#cardList" ).on( "sortstop", function( event, ui ) {
+$( "#cardList" ).on( "sortstop", function( ) {
     const listArr = [];
 
     $("#cardList .card").each(function (index) {
