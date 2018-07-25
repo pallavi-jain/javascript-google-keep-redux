@@ -15,28 +15,23 @@ export function onAddBtnClick() {
     if (taskItem) {
         let task_li_str;
         if (!editMode) {
-            let removeItem = 'removeBtn_' + itemIndex;
-            let taskId = 'task_' + itemIndex;
             task_li_str = `<li class="mb-2 ml-4" id="li_${itemIndex}">
                             <div class="row">
-                                <div id="${taskId}" class="task col-sm-11 modalInput">
+                                <div id="task_${itemIndex}" class="task col-sm-11 modalInput">
                                     <span>${taskItem}</span></div>
                                 <div class='col-sm-1 pl-0'>
-                                    <button id="${removeItem}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button></div>
+                                    <button id="removeBtn_${itemIndex}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button></div>
                                 </div>
                             </li>`;
         } else {
-            let liId = 'li_' + editModeId + '_' + itemIndex;
-            let inputId = 'input_' + editModeId + '_' + itemIndex;
-            let checkId = 'check_' + editModeId + '_' + itemIndex;
-            let removeItem = 'removeBtn_' + editModeId + '_' + itemIndex;
+            const id_suffix = editModeId + '_' + itemIndex;
             let taskItem = $('#addItem').val().trim();
-            task_li_str = `<li class="mb-2 ml-4" id="${liId}">
+            task_li_str = `<li class="mb-2 ml-4" id="li_${id_suffix}">
                             <div class="row">
                                 <div class="col-md-11">
-                                    <input type="checkbox" id="${checkId}" class="form-check-input mt-3 checkboxPopup">
-                                        <input id="${inputId}" class="form-control modalInput" type="text" value="${taskItem}"></div>
-                                <div class="col-md-1 pl-0"><button id="${removeItem}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
+                                    <input type="checkbox" id="check_${id_suffix}" class="form-check-input mt-3 checkboxPopup">
+                                        <input id="input_${id_suffix}" class="form-control modalInput" type="text" value="${taskItem}"></div>
+                                <div class="col-md-1 pl-0"><button id="removeBtn_${id_suffix}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
                             </div></div>
                             </li>`
         }
@@ -113,17 +108,14 @@ export function openEditModal(index) {
 
     for (let i = 0; i < cardInfo.card.data.length; i++) {
         const element = cardInfo.card.data[i];
-        var liId = 'li_' + index + '_' + i;
-        let inputId = 'input_' + index + '_' + i;
-        let checkId = 'check_' + index + '_' + i;
+        const id_suffix = index + '_' + i;
         let isChecked = element.checked ? 'checked' : '';
-        let removeItem = 'removeBtn_' + index + '_' + i;
-        let task_li_str = `<li class="mb-2 ml-4" id="${liId}" data-createDate="${element.date}">
+        let task_li_str = `<li class="mb-2 ml-4" id="li_${id_suffix}" data-createDate="${element.date}">
                             <div class="row">
                             <div class="col-md-11">
-                                <input type="checkbox" id="${checkId}" ${isChecked} class="form-check-input mt-3 checkboxPopup">
-                                <input id="${inputId}" class="form-control modalInput" type="text"  value="${element.taskName}"></div><div class="col-md-1 pl-0">
-                                <button id="${removeItem}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
+                                <input type="checkbox" id="check_${id_suffix}" ${isChecked} class="form-check-input mt-3 checkboxPopup">
+                                <input id="input_${id_suffix}" class="form-control modalInput" type="text"  value="${element.taskName}"></div><div class="col-md-1 pl-0">
+                                <button id="removeBtn_${id_suffix}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
                                 </div>
                             </div>
                             </li>`
