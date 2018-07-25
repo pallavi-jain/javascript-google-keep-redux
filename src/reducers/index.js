@@ -1,8 +1,9 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import cards from './cards';
 
 const cardsReducer = combineReducers({
-    cards: cards, lastAction: lastAction
+    cards,
+lastAction
     
   });
 

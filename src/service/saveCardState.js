@@ -1,17 +1,26 @@
-var $ = require('jquery');
-export function saveCardState(id, cardInfo){
+import $ from 'jquery';
 
-    var url = "http://localhost:3000/lists/"+id,
-    type = "PUT"
+/**
+ * Adds two numbers together.
+ * @param {int} id The first number.
+ * @param {object} card/Info The second number.
+ * @returns {object} The sum of the two numbers.
+ */
+
+export function saveCardState(id, cardInfo) {
+
+    const type = "PUT",
+     url = `http://localhost:3000/lists/${id}`;
+
     $.ajax({
-        url: url,
-        type: type,
-        data: JSON.stringify(cardInfo),
-        headers: {
+        url,
+        type,
+        "data": JSON.stringify(cardInfo),
+        "headers": {
             "content-type": "application/json"  
           },
-        success: function(result) {
-        //Write your code here
+        "success"() {
+        // Write your code here
         
         }
 });      

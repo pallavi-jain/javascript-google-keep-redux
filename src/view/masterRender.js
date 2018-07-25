@@ -1,5 +1,4 @@
-export let todo = (itemIndex, taskItem) => {
-return `<li class="mb-2 ml-4" id="li_${itemIndex}">
+export const todo = (itemIndex, taskItem) => `<li class="mb-2 ml-4" id="li_${itemIndex}">
 <div class="row">
     <div id="task_${itemIndex}" class="task col-sm-11 modalInput">
         <span>${taskItem}</span></div>
@@ -7,21 +6,17 @@ return `<li class="mb-2 ml-4" id="li_${itemIndex}">
         <button id="removeBtn_${itemIndex}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button></div>
     </div>
 </li>`;
-}
 
-export let todoEdit = (id_suffix, taskItem, isChecked = '') => {
-  return  `<li class="mb-2 ml-4" id="li_${id_suffix}">
+export const todoEdit = (id_suffix, taskItem, isChecked = '') => `<li class="mb-2 ml-4" id="li_${id_suffix}">
                             <div class="row">
                                 <div class="col-md-11">
                                     <input type="checkbox" id="check_${id_suffix}" ${isChecked} class="form-check-input mt-3 checkboxPopup">
                                         <input id="input_${id_suffix}" class="form-control modalInput" type="text" value="${taskItem}"></div>
                                 <div class="col-md-1 pl-0"><button id="removeBtn_${id_suffix}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
                             </div></div>
-                            </li>`
-}
+                            </li>`;
 
-export let cardHeader = (name, cardId) => {
-    return `<div class="container">
+export const cardHeader = (name, cardId) => `<div class="container">
     <div class="row">
         <div class="col-md-9">
             <h5>${name}</h5>
@@ -34,10 +29,8 @@ export let cardHeader = (name, cardId) => {
         </div>
     </div>
     </div>`;
-}
 
-export let addCardModal = () =>{
-    return ` <div class="modal fade" id="addListCardModal" tabindex="-1" role="dialog" aria-labelledby="addListCardModalTitle" aria-hidden="true">
+export const addCardModal = () => ` <div class="modal fade" id="addListCardModal" tabindex="-1" role="dialog" aria-labelledby="addListCardModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -74,10 +67,8 @@ export let addCardModal = () =>{
         </div>
     </div>
 </div>`;
-}
 
-export let addOpenConfirmation = () =>{
-    return ` <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+export const addOpenConfirmation = () => ` <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -96,4 +87,3 @@ export let addOpenConfirmation = () =>{
       </div>
     </div>
   </div>`;
-}

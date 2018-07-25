@@ -1,47 +1,49 @@
-var $ = require('jquery');
+const $ = require('jquery');
 
-export function addCardData(cardObj, callback,id){
+export function addCardData(cardObj, callback, id) {
 
 
-    var url = "http://localhost:3000/lists";
-    var type = "POST";
-    if(id){
-        url = "http://localhost:3000/lists/"+id;
-        type = "PATCH"
+    let type = "POST",
+     url = "http://localhost:3000/lists";
+
+    if (id) {
+        url = `http://localhost:3000/lists/${id}`;
+        type = "PATCH";
     }
 
     $.ajax({
-        url: url,
-        type: type,
-        data: JSON.stringify({"card": cardObj}),
-        //dataType: "json",
-        headers: {
+        url,
+        type,
+        "data": JSON.stringify({"card": cardObj}),
+        // DataType: "json",
+        "headers": {
             "content-type": "application/json"
            
             
           },
-        success: function(result) {
-        //Write your code here
+        "success"(result) {
+        // Write your code here
         callback(result);
         }
 });      
 }
 
-export function deleteCardData(callback, id){
-    var type = 'DELETE';
-    var url = "http://localhost:3000/lists/"+id;
+export function deleteCardData(callback, id) {
+    let type = 'DELETE',
+     url = `http://localhost:3000/lists/${id}`;
+
     $.ajax({
-        url: url,
-        type: type,
+        url,
+        type,
         
-        //dataType: "json",
-        headers: {
+        // DataType: "json",
+        "headers": {
             "content-type": "application/json"
            
             
           },
-        success: function(result) {
-        //Write your code here
+        "success"(result) {
+        // Write your code here
         callback(result);
         }
 });     
