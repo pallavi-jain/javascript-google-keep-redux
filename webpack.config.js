@@ -10,7 +10,19 @@ module.exports = {
   devtool: 'sourcemap',
   module: {
     rules: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.js$/, 
+        use: [
+        {
+            loader : "babel-loader"
+         },
+        {
+            loader: "eslint-loader",
+            options:{
+                fix: true
+            }
+    
+        }
+    ], exclude: /node_modules/ },
       { test: /\.html$/, loader: 'raw-loader', exclude: /node_modules/ },
       { test: /\.scss$/, 
         use: [
