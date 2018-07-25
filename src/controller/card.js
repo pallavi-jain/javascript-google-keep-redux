@@ -3,6 +3,7 @@ import { openEditModal, openConfirmation } from './toDoListModal';
 import * as saveCardState from '../service/saveCardState';
 import {store} from '../index';
 
+export var cardsData = {};
 export function renderCards(){
     let currentState = store.getState();
     let myCards = currentState.cards;
@@ -16,11 +17,9 @@ export function renderCards(){
 
 }
 
-
-
 export function addCard(cardData) {   
 
-    let cardId = cardData.id;
+    const cardId = cardData.id;
     
     let cardHolder = document.getElementById('cardList');
     let card = document.createElement('div');
@@ -31,17 +30,15 @@ export function addCard(cardData) {
     cardBody.className = 'card-body';
     cardBody.setAttribute('id', 'card-body_' + cardId);
     card.appendChild(cardBody);
-    let editId = 'card-edit_' + cardId;
-    let deleteId = 'card-delete_' + cardId;
     let headerStr = `<div class="container">
                         <div class="row">
                             <div class="col-md-9">
                                 <h5>${cardData.card.name}</h5>
                             </div>
                             <div class="col-md-3">
-                                <a role="button" class="btn pl-0 pr-0" aria-label="edit" id="${editId}">
+                                <a role="button" class="btn pl-0 pr-0" aria-label="edit" id="card-edit_${cardId}">
                                     <i class="far fa-edit"></i></a>
-                                <a role="button" class="btn pl-0 pr-0" aria-label="delete" id="${deleteId}">
+                                <a role="button" class="btn pl-0 pr-0" aria-label="delete" id="card-delete_${cardId}">
                                     <i class="fas fa-trash-alt"></i></a>
                             </div>
                         </div>
@@ -60,7 +57,6 @@ export function addCard(cardData) {
         checkbox.setAttribute('type', 'checkbox');
         checkbox.className = 'form-check-input';
         checkbox.checked = element.checked;
-
         checkLabel.appendChild(checkbox);
         checkLabel.appendChild(document.createTextNode(element.taskName));
         listitem.appendChild(checkLabel);
@@ -89,10 +85,7 @@ export function addCard(cardData) {
     });
 }
 
-export var cardsData = {};
-
 $( "#cardList" ).on( "sortstop", function( event, ui ) {
-    
     let listArr = [];
     $("#cardList .card").each(function (index) {
         cardsData[$(this).attr('id')].card.order = index+1;

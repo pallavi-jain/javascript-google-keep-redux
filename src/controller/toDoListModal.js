@@ -8,6 +8,7 @@ $('#addNewItem').click(onAddBtnClick);
 let editModeId;
 let editMode = false;
 let timeStampObj = {};
+var deleteIndex;
 export function onAddBtnClick() {
 
     let itemIndex = $("ul#taskList-ul").children().length + 1;
@@ -45,11 +46,9 @@ export function onAddBtnClick() {
 export function onSaveNewCardBtnClick() {
     let cardInfo = {};
     cardInfo.date = Date.now();
-
     cardInfo.name = $('#todoListTitle').val().trim();
     cardInfo.data = [];
-    let cardWrap = {};
-    
+    let cardWrap = {}; 
     if (!editMode) {
         $("ul#taskList-ul li").each(function (index) {
             let taskObj = {};
@@ -71,8 +70,8 @@ export function onSaveNewCardBtnClick() {
             let splitStr = liId.split('_');
             splitStr.shift();
             let id_substr = splitStr.join('_');
-            let checkId = 'check_' + id_substr;
-            let inputId = 'input_' + id_substr;
+            const checkId = 'check_' + id_substr;
+            const inputId = 'input_' + id_substr;
             taskObj.checked = $('#' + checkId).is(":checked");
             taskObj.date = timeStampObj[checkId] ? timeStampObj[checkId] : Number($(this).attr('data-createDate'));
             taskObj.taskName = String($('#' + inputId).val()).trim();
@@ -84,7 +83,6 @@ export function onSaveNewCardBtnClick() {
     
     cardWrap.card = cardInfo;
     let state = store.getState();
-    
     $('#cardList').empty();
     
     if(!editMode){
@@ -95,7 +93,6 @@ export function onSaveNewCardBtnClick() {
         store.dispatch({type: 'EDIT_CARD', card:cardWrap});
     }
     getCardsService.cardListData[cardWrap.id] = cardWrap;
-
     todoListModalService.addCardData(cardInfo, onDataSave, editModeId);
 }
 
@@ -121,12 +118,10 @@ export function openEditModal(index) {
                             </li>`
         $('ul#taskList-ul').append(task_li_str);
     }
-
     $('#addListCardModal').modal('handleUpdate');
     $('#addListCardModal').modal('show');
 }
 
-var deleteIndex;
 export function openConfirmation(index) {
     deleteIndex = index;
     $("#deleteConfirmationModal").modal('show');
@@ -156,7 +151,6 @@ $('#addListCardModal').on('shown.bs.modal', function () {
 });
 
 $('#addListCardModal').on('hidden.bs.modal', function (e) {
-    // do something...
     editMode = false;
     editModeId = undefined;
     deleteIndex = undefined;
@@ -179,14 +173,11 @@ $(document).on("click", ".deleteItem", function (e) {
 });
 
 $(document).on("change", ".checkboxPopup", function (e) {
-
     timeStampObj[$(e.currentTarget).attr('id')] = Date.now();
 });
 
 $('#addItem').keypress(function (e) {
-
     if (e.keyCode == 13) {
-        //enter press
         onAddBtnClick();
     }
 });

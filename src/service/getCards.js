@@ -27,8 +27,4 @@ export function getCards(){
         }
     });
 
-    function render(){
-        console.log('heyyyyy')
-    }
-
 }

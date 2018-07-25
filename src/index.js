@@ -16,11 +16,7 @@ function render(){
     renderCards();
 }
 $( document ).ready(function() {
-    
-   cardService.getCards();
-   
-   
-    
+    cardService.getCards();   
 });
 $( function() {
     $( "#taskList-ul" ).sortable();
