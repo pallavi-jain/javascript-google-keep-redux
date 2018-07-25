@@ -21039,26 +21039,62 @@ module.exports = function(originalModule) {
 
 /***/ }),
 
-/***/ "./src/controller/card.js":
-/*!********************************!*\
-  !*** ./src/controller/card.js ***!
-  \********************************/
-/*! exports provided: renderCards, addCard, cardsData */
+/***/ "./src/app.js":
+/*!********************!*\
+  !*** ./src/app.js ***!
+  \********************/
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _service_getCards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./service/getCards */ "./src/service/getCards.js");
+/* harmony import */ var _view_masterRender__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./view/masterRender */ "./src/view/masterRender.js");
+var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
+__webpack_require__(/*! jquery-ui */ "./node_modules/jquery-ui/ui/widget.js");
+__webpack_require__(/*! jquery-ui/ui/widgets/sortable */ "./node_modules/jquery-ui/ui/widgets/sortable.js");
+__webpack_require__(/*! jquery-ui/ui/disable-selection */ "./node_modules/jquery-ui/ui/disable-selection.js");
+
+
+$(document).ready(function () {
+    $('body').append(_view_masterRender__WEBPACK_IMPORTED_MODULE_1__["addCardModal"]());
+    $('body').append(_view_masterRender__WEBPACK_IMPORTED_MODULE_1__["addOpenConfirmation"]());
+    _service_getCards__WEBPACK_IMPORTED_MODULE_0__["getCards"]();
+});
+
+$(function () {
+    $("#taskList-ul").sortable();
+    $("#taskList-ul").disableSelection();
+    $("#cardList").sortable({});
+    $("#cardList").disableSelection();
+});
+
+/***/ }),
+
+/***/ "./src/controller/card.js":
+/*!********************************!*\
+  !*** ./src/controller/card.js ***!
+  \********************************/
+/*! exports provided: cardsData, renderCards, addCard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cardsData", function() { return cardsData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderCards", function() { return renderCards; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCard", function() { return addCard; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cardsData", function() { return cardsData; });
 /* harmony import */ var _toDoListModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDoListModal */ "./src/controller/toDoListModal.js");
 /* harmony import */ var _service_saveCardState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/saveCardState */ "./src/service/saveCardState.js");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../index */ "./src/index.js");
+/* harmony import */ var _view_masterRender__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../view/masterRender */ "./src/view/masterRender.js");
 var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 
 
 
+
+let cardsData = {};
 function renderCards() {
     let currentState = _index__WEBPACK_IMPORTED_MODULE_2__["store"].getState();
     let myCards = currentState.cards;
@@ -21073,7 +21109,7 @@ function renderCards() {
 
 function addCard(cardData) {
 
-    let cardId = cardData.id;
+    const cardId = cardData.id;
 
     let cardHolder = document.getElementById('cardList');
     let card = document.createElement('div');
@@ -21084,21 +21120,7 @@ function addCard(cardData) {
     cardBody.className = 'card-body';
     cardBody.setAttribute('id', 'card-body_' + cardId);
     card.appendChild(cardBody);
-    let editId = 'card-edit_' + cardId;
-    let deleteId = 'card-delete_' + cardId;
-    let headerStr = `<div class="container">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <h5>${cardData.card.name}</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <a role="button" class="btn pl-0 pr-0" aria-label="edit" id="${editId}">
-                                    <i class="far fa-edit"></i></a>
-                                <a role="button" class="btn pl-0 pr-0" aria-label="delete" id="${deleteId}">
-                                    <i class="fas fa-trash-alt"></i></a>
-                            </div>
-                        </div>
-                        </div>`;
+    let headerStr = _view_masterRender__WEBPACK_IMPORTED_MODULE_3__["cardHeader"](cardData.card.name, cardId);
     $(cardBody).append(headerStr);
 
     let todoList = document.createElement('ul');
@@ -21113,7 +21135,6 @@ function addCard(cardData) {
         checkbox.setAttribute('type', 'checkbox');
         checkbox.className = 'form-check-input';
         checkbox.checked = element.checked;
-
         checkLabel.appendChild(checkbox);
         checkLabel.appendChild(document.createTextNode(element.taskName));
         listitem.appendChild(checkLabel);
@@ -21128,23 +21149,22 @@ function addCard(cardData) {
     card.appendChild(divFooter);
     cardHolder.appendChild(card);
 
-    $(document).on("click", "a#" + editId, function (e) {
+    const editBtnId = 'card-edit_' + cardId;
+    $(document).on("click", "a#" + editBtnId, function (e) {
         let editId = $(this).attr('id');
         let index = editId.split('_')[1];
         Object(_toDoListModal__WEBPACK_IMPORTED_MODULE_0__["openEditModal"])(index);
     });
 
-    $(document).on("click", "a#" + deleteId, function (e) {
+    const deleteBtnId = 'card-delete_' + cardId;
+    $(document).on("click", "a#" + deleteBtnId, function (e) {
         let deleteId = $(this).attr('id');
         let index = deleteId.split('_')[1];
         Object(_toDoListModal__WEBPACK_IMPORTED_MODULE_0__["openConfirmation"])(index);
     });
 }
 
-var cardsData = {};
-
 $("#cardList").on("sortstop", function (event, ui) {
-
     let listArr = [];
     $("#cardList .card").each(function (index) {
         cardsData[$(this).attr('id')].card.order = index + 1;
@@ -21161,7 +21181,7 @@ $("#cardList").on("sortstop", function (event, ui) {
 /*!*****************************************!*\
   !*** ./src/controller/toDoListModal.js ***!
   \*****************************************/
-/*! exports provided: onAddBtnClick, onSaveNewCardBtnClick, openEditModal, openConfirmation */
+/*! exports provided: onAddBtnClick, onSaveNewCardBtnClick, openEditModal, openConfirmation, onDeleteClick */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21170,52 +21190,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onSaveNewCardBtnClick", function() { return onSaveNewCardBtnClick; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openEditModal", function() { return openEditModal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openConfirmation", function() { return openConfirmation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onDeleteClick", function() { return onDeleteClick; });
 /* harmony import */ var _service_toDoListModalService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../service/toDoListModalService */ "./src/service/toDoListModalService.js");
 /* harmony import */ var _service_getCards__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/getCards */ "./src/service/getCards.js");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../index */ "./src/index.js");
+/* harmony import */ var _view_masterRender__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../view/masterRender */ "./src/view/masterRender.js");
 var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 __webpack_require__(/*! jquery-ui */ "./node_modules/jquery-ui/ui/widget.js");
 
 
 
 
-$('#addNewItem').click(onAddBtnClick);
+
 let editModeId;
 let editMode = false;
 let timeStampObj = {};
+var deleteIndex;
+$('#addNewItem').click(onAddBtnClick);
 function onAddBtnClick() {
-
     let itemIndex = $("ul#taskList-ul").children().length + 1;
     let taskItem = $('#addItem').val().trim();
     if (taskItem) {
         let task_li_str;
         if (!editMode) {
-            let removeItem = 'removeBtn_' + itemIndex;
-            let taskId = 'task_' + itemIndex;
-            task_li_str = `<li class="mb-2 ml-4" id="li_${itemIndex}">
-                            <div class="row">
-                                <div id="${taskId}" class="task col-sm-11 modalInput">
-                                    <span>${taskItem}</span></div>
-                                <div class='col-sm-1 pl-0'>
-                                    <button id="${removeItem}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button></div>
-                                </div>
-                            </li>`;
+            task_li_str = _view_masterRender__WEBPACK_IMPORTED_MODULE_3__["todo"](itemIndex, taskItem);
         } else {
-            let liId = 'li_' + editModeId + '_' + itemIndex;
-            let inputId = 'input_' + editModeId + '_' + itemIndex;
-            let checkId = 'check_' + editModeId + '_' + itemIndex;
-            let removeItem = 'removeBtn_' + editModeId + '_' + itemIndex;
+            const id_suffix = editModeId + '_' + itemIndex;
             let taskItem = $('#addItem').val().trim();
-            task_li_str = `<li class="mb-2 ml-4" id="${liId}">
-                            <div class="row">
-                                <div class="col-md-11">
-                                    <input type="checkbox" id="${checkId}" class="form-check-input mt-3 checkboxPopup">
-                                        <input id="${inputId}" class="form-control modalInput" type="text" value="${taskItem}"></div>
-                                <div class="col-md-1 pl-0"><button id="${removeItem}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
-                            </div></div>
-                            </li>`;
+            task_li_str = _view_masterRender__WEBPACK_IMPORTED_MODULE_3__["todoEdit"](id_suffix, taskItem);
         }
-
         $('ul#taskList-ul').append(task_li_str);
         $('#addListCardModal').modal('handleUpdate');
         $('#addItem').val('');
@@ -21225,20 +21228,19 @@ function onAddBtnClick() {
 function onSaveNewCardBtnClick() {
     let cardInfo = {};
     cardInfo.date = Date.now();
-
     cardInfo.name = $('#todoListTitle').val().trim();
     cardInfo.data = [];
     let cardWrap = {};
-
+    let taskObj, liId, splitStr, substr, taskId;
     if (!editMode) {
         $("ul#taskList-ul li").each(function (index) {
-            let taskObj = {};
+            taskObj = {};
             taskObj.checked = false;
-            let liId = $(this).attr('id');
-            let splitStr = liId.split('_');
+            liId = $(this).attr('id');
+            splitStr = liId.split('_');
             splitStr.shift();
-            let substr = splitStr.join('_');
-            let taskId = 'task_' + substr;
+            substr = splitStr.join('_');
+            taskId = 'task_' + substr;
             taskObj.taskName = String($('#' + taskId + ' span').text()).trim();
             taskObj.date = Date.now();
             cardInfo.data.push(taskObj);
@@ -21246,13 +21248,13 @@ function onSaveNewCardBtnClick() {
         });
     } else {
         $("ul#taskList-ul li").each(function (index) {
-            let taskObj = {};
-            let liId = $(this).attr('id');
-            let splitStr = liId.split('_');
+            taskObj = {};
+            liId = $(this).attr('id');
+            splitStr = liId.split('_');
             splitStr.shift();
             let id_substr = splitStr.join('_');
-            let checkId = 'check_' + id_substr;
-            let inputId = 'input_' + id_substr;
+            const checkId = 'check_' + id_substr;
+            const inputId = 'input_' + id_substr;
             taskObj.checked = $('#' + checkId).is(":checked");
             taskObj.date = timeStampObj[checkId] ? timeStampObj[checkId] : Number($(this).attr('data-createDate'));
             taskObj.taskName = String($('#' + inputId).val()).trim();
@@ -21264,7 +21266,6 @@ function onSaveNewCardBtnClick() {
 
     cardWrap.card = cardInfo;
     let state = _index__WEBPACK_IMPORTED_MODULE_2__["store"].getState();
-
     $('#cardList').empty();
 
     if (!editMode) {
@@ -21275,7 +21276,6 @@ function onSaveNewCardBtnClick() {
         _index__WEBPACK_IMPORTED_MODULE_2__["store"].dispatch({ type: 'EDIT_CARD', card: cardWrap });
     }
     _service_getCards__WEBPACK_IMPORTED_MODULE_1__["cardListData"][cardWrap.id] = cardWrap;
-
     _service_toDoListModalService__WEBPACK_IMPORTED_MODULE_0__["addCardData"](cardInfo, onDataSave, editModeId);
 }
 
@@ -21288,58 +21288,26 @@ function openEditModal(index) {
 
     for (let i = 0; i < cardInfo.card.data.length; i++) {
         const element = cardInfo.card.data[i];
-        var liId = 'li_' + index + '_' + i;
-        let inputId = 'input_' + index + '_' + i;
-        let checkId = 'check_' + index + '_' + i;
+        const id_suffix = index + '_' + i;
         let isChecked = element.checked ? 'checked' : '';
-        let removeItem = 'removeBtn_' + index + '_' + i;
-        let task_li_str = `<li class="mb-2 ml-4" id="${liId}" data-createDate="${element.date}">
-                            <div class="row">
-                            <div class="col-md-11">
-                                <input type="checkbox" id="${checkId}" ${isChecked} class="form-check-input mt-3 checkboxPopup">
-                                <input id="${inputId}" class="form-control modalInput" type="text"  value="${element.taskName}"></div><div class="col-md-1 pl-0">
-                                <button id="${removeItem}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
-                                </div>
-                            </div>
-                            </li>`;
+        let task_li_str = _view_masterRender__WEBPACK_IMPORTED_MODULE_3__["todoEdit"](id_suffix, element.taskName, isChecked);
         $('ul#taskList-ul').append(task_li_str);
     }
-
     $('#addListCardModal').modal('handleUpdate');
     $('#addListCardModal').modal('show');
 }
 
-var deleteIndex;
 function openConfirmation(index) {
     deleteIndex = index;
     $("#deleteConfirmationModal").modal('show');
 }
 
-var deletebtn = document.getElementById('deleteConfirmbtn');
-deletebtn.addEventListener('click', onDeleteClick);
+const onDataDelete = () => $('#deleteConfirmationModal').modal('hide');
 
-function onDeleteClick(e) {
-    $('#cardList').empty();
-    _index__WEBPACK_IMPORTED_MODULE_2__["store"].dispatch({ type: 'DELETE_CARD', id: Number(deleteIndex) });
-    _service_toDoListModalService__WEBPACK_IMPORTED_MODULE_0__["deleteCardData"](onDataDelete, deleteIndex);
-}
+const onDataSave = () => $('#addListCardModal').modal('hide');
 
-function onDataDelete() {
-    $('#deleteConfirmationModal').modal('hide');
-    //getCardsService.getCards();
-}
-
-function onDataSave() {
-    $('#addListCardModal').modal('hide');
-    //getCardsService.getCards();
-}
-
-$('#addListCardModal').on('shown.bs.modal', function () {
-    $('#todoListTitle').trigger('focus');
-});
-
-$('#addListCardModal').on('hidden.bs.modal', function (e) {
-    // do something...
+$(document).on('shown.bs.modal', '#addListCardModal', () => $('#todoListTitle').trigger('focus'));
+$(document).on('hidden.bs.modal', '#addListCardModal', () => {
     editMode = false;
     editModeId = undefined;
     deleteIndex = undefined;
@@ -21349,8 +21317,7 @@ $('#addListCardModal').on('hidden.bs.modal', function (e) {
     $('#addItem').val('');
 });
 
-var saveNewCardBtn = document.getElementById('saveCardBtn');
-saveNewCardBtn.addEventListener('click', onSaveNewCardBtnClick);
+$(document).on('click', '#saveCardBtn', onSaveNewCardBtnClick);
 
 $(document).on("click", ".deleteItem", function (e) {
     let deleteItemId = $(e.currentTarget).attr('id');
@@ -21362,17 +21329,22 @@ $(document).on("click", ".deleteItem", function (e) {
 });
 
 $(document).on("change", ".checkboxPopup", function (e) {
-
     timeStampObj[$(e.currentTarget).attr('id')] = Date.now();
 });
 
-$('#addItem').keypress(function (e) {
-
+$(document).on("keypress", "#addItem", function (e) {
     if (e.keyCode == 13) {
-        //enter press
         onAddBtnClick();
     }
 });
+
+$(document).on('click', '#deleteConfirmbtn', onDeleteClick);
+
+function onDeleteClick(e) {
+    $('#cardList').empty();
+    _index__WEBPACK_IMPORTED_MODULE_2__["store"].dispatch({ type: 'DELETE_CARD', id: Number(deleteIndex) });
+    _service_toDoListModalService__WEBPACK_IMPORTED_MODULE_0__["deleteCardData"](onDataDelete, deleteIndex);
+}
 
 /***/ }),
 
@@ -21393,7 +21365,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _styles_sass_styles_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../styles/sass/styles.scss */ "./styles/sass/styles.scss");
 /* harmony import */ var _styles_sass_styles_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_styles_sass_styles_scss__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _service_getCards__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./service/getCards */ "./src/service/getCards.js");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app */ "./src/app.js");
 var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 __webpack_require__(/*! jquery-ui */ "./node_modules/jquery-ui/ui/widget.js");
 __webpack_require__(/*! jquery-ui/ui/widgets/sortable */ "./node_modules/jquery-ui/ui/widgets/sortable.js");
@@ -21405,23 +21377,12 @@ __webpack_require__(/*! jquery-ui/ui/disable-selection */ "./node_modules/jquery
 
 
 
-const store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_index__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
+const store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_index__WEBPACK_IMPORTED_MODULE_1__["default"]);
 store.subscribe(render);
 function render() {
     Object(_controller_card__WEBPACK_IMPORTED_MODULE_2__["renderCards"])();
 }
-$(document).ready(function () {
-
-    _service_getCards__WEBPACK_IMPORTED_MODULE_5__["getCards"]();
-});
-$(function () {
-    $("#taskList-ul").sortable();
-    $("#taskList-ul").disableSelection();
-
-    $("#cardList").sortable({});
-    $("#cardList").disableSelection();
-});
 
 /***/ }),
 
@@ -21533,10 +21494,6 @@ function getCards() {
             // cardsData[card.id] = card;
         }
     });
-
-    function render() {
-        console.log('heyyyyy');
-    }
 }
 
 /***/ }),
@@ -21560,16 +21517,9 @@ function saveCardState(id, cardInfo) {
         url: url,
         type: type,
         data: JSON.stringify(cardInfo),
-        //dataType: "json",
         headers: {
             "content-type": "application/json"
-
         },
-        // beforeSend: function(x) {
-        //   if (x && x.overrideMimeType) {
-        //     x.overrideMimeType("application/j-son;charset=UTF-8");
-        //   }
-        // },
         success: function (result) {
             //Write your code here
 
@@ -21635,6 +21585,122 @@ function deleteCardData(callback, id) {
         }
     });
 }
+
+/***/ }),
+
+/***/ "./src/view/masterRender.js":
+/*!**********************************!*\
+  !*** ./src/view/masterRender.js ***!
+  \**********************************/
+/*! exports provided: todo, todoEdit, cardHeader, addCardModal, addOpenConfirmation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "todo", function() { return todo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "todoEdit", function() { return todoEdit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cardHeader", function() { return cardHeader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCardModal", function() { return addCardModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addOpenConfirmation", function() { return addOpenConfirmation; });
+let todo = (itemIndex, taskItem) => {
+    return `<li class="mb-2 ml-4" id="li_${itemIndex}">
+<div class="row">
+    <div id="task_${itemIndex}" class="task col-sm-11 modalInput">
+        <span>${taskItem}</span></div>
+    <div class='col-sm-1 pl-0'>
+        <button id="removeBtn_${itemIndex}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button></div>
+    </div>
+</li>`;
+};
+
+let todoEdit = (id_suffix, taskItem, isChecked = '') => {
+    return `<li class="mb-2 ml-4" id="li_${id_suffix}">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <input type="checkbox" id="check_${id_suffix}" ${isChecked} class="form-check-input mt-3 checkboxPopup">
+                                        <input id="input_${id_suffix}" class="form-control modalInput" type="text" value="${taskItem}"></div>
+                                <div class="col-md-1 pl-0"><button id="removeBtn_${id_suffix}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
+                            </div></div>
+                            </li>`;
+};
+
+let cardHeader = (name, cardId) => {
+    return `<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h5>${name}</h5>
+        </div>
+        <div class="col-md-3">
+            <a role="button" class="btn pl-0 pr-0" aria-label="edit" id="card-edit_${cardId}">
+                <i class="far fa-edit"></i></a>
+            <a role="button" class="btn pl-0 pr-0" aria-label="delete" id="card-delete_${cardId}">
+                <i class="fas fa-trash-alt"></i></a>
+        </div>
+    </div>
+    </div>`;
+};
+
+let addCardModal = () => {
+    return ` <div class="modal fade" id="addListCardModal" tabindex="-1" role="dialog" aria-labelledby="addListCardModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addListCardModalTitle">to-do List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                <input id="todoListTitle" class="form-control border-0" type="text" placeholder="Title">
+            </div>
+                
+                <div class="container mt-2">
+                    <div class="row">
+                        <div class="col-sm-12">
+                                <input id="addItem" class="form-control border-0" type="text" placeholder="Add Item">
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <hr>
+                     <ul id="taskList-ul" class="list-unstyled">
+                    </ul> 
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="saveCardBtn" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>`;
+};
+
+let addOpenConfirmation = () => {
+    return ` <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this list?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button id="deleteConfirmbtn" type="button" class="btn btn-primary">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+};
 
 /***/ }),
 

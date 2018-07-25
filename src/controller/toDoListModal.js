@@ -3,40 +3,25 @@ require('jquery-ui');
 import * as todoListModalService from '../service/toDoListModalService';
 import * as getCardsService from '../service/getCards';
 import {store} from '../index';
+import * as masterRenderer from '../view/masterRender';
 
-$('#addNewItem').click(onAddBtnClick);
 let editModeId;
 let editMode = false;
 let timeStampObj = {};
 var deleteIndex;
+$('#addNewItem').click(onAddBtnClick);
 export function onAddBtnClick() {
-
     let itemIndex = $("ul#taskList-ul").children().length + 1;
     let taskItem = $('#addItem').val().trim();
     if (taskItem) {
         let task_li_str;
         if (!editMode) {
-            task_li_str = `<li class="mb-2 ml-4" id="li_${itemIndex}">
-                            <div class="row">
-                                <div id="task_${itemIndex}" class="task col-sm-11 modalInput">
-                                    <span>${taskItem}</span></div>
-                                <div class='col-sm-1 pl-0'>
-                                    <button id="removeBtn_${itemIndex}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button></div>
-                                </div>
-                            </li>`;
+            task_li_str = masterRenderer.todo(itemIndex, taskItem);
         } else {
             const id_suffix = editModeId + '_' + itemIndex;
             let taskItem = $('#addItem').val().trim();
-            task_li_str = `<li class="mb-2 ml-4" id="li_${id_suffix}">
-                            <div class="row">
-                                <div class="col-md-11">
-                                    <input type="checkbox" id="check_${id_suffix}" class="form-check-input mt-3 checkboxPopup">
-                                        <input id="input_${id_suffix}" class="form-control modalInput" type="text" value="${taskItem}"></div>
-                                <div class="col-md-1 pl-0"><button id="removeBtn_${id_suffix}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
-                            </div></div>
-                            </li>`
+            task_li_str = masterRenderer.todoEdit(id_suffix, taskItem);
         }
-
         $('ul#taskList-ul').append(task_li_str);
         $('#addListCardModal').modal('handleUpdate');
         $('#addItem').val('');
@@ -49,15 +34,16 @@ export function onSaveNewCardBtnClick() {
     cardInfo.name = $('#todoListTitle').val().trim();
     cardInfo.data = [];
     let cardWrap = {}; 
+    let taskObj, liId, splitStr, substr, taskId
     if (!editMode) {
         $("ul#taskList-ul li").each(function (index) {
-            let taskObj = {};
+            taskObj = {};
             taskObj.checked = false;
-            let liId = $(this).attr('id');
-            let splitStr = liId.split('_');
+            liId = $(this).attr('id');
+            splitStr = liId.split('_');
             splitStr.shift();
-            let substr = splitStr.join('_');
-            let taskId = 'task_' + substr;
+            substr = splitStr.join('_');
+            taskId = 'task_' + substr;
             taskObj.taskName = String($('#' + taskId + ' span').text()).trim();
             taskObj.date = Date.now();
             cardInfo.data.push(taskObj);
@@ -65,9 +51,9 @@ export function onSaveNewCardBtnClick() {
         });
     } else {
         $("ul#taskList-ul li").each(function (index) {
-            let taskObj = {};
-            let liId = $(this).attr('id');
-            let splitStr = liId.split('_');
+            taskObj = {};
+            liId = $(this).attr('id');
+            splitStr = liId.split('_');
             splitStr.shift();
             let id_substr = splitStr.join('_');
             const checkId = 'check_' + id_substr;
@@ -107,15 +93,7 @@ export function openEditModal(index) {
         const element = cardInfo.card.data[i];
         const id_suffix = index + '_' + i;
         let isChecked = element.checked ? 'checked' : '';
-        let task_li_str = `<li class="mb-2 ml-4" id="li_${id_suffix}" data-createDate="${element.date}">
-                            <div class="row">
-                            <div class="col-md-11">
-                                <input type="checkbox" id="check_${id_suffix}" ${isChecked} class="form-check-input mt-3 checkboxPopup">
-                                <input id="input_${id_suffix}" class="form-control modalInput" type="text"  value="${element.taskName}"></div><div class="col-md-1 pl-0">
-                                <button id="removeBtn_${id_suffix}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
-                                </div>
-                            </div>
-                            </li>`
+        let task_li_str = masterRenderer.todoEdit(id_suffix, element.taskName, isChecked);
         $('ul#taskList-ul').append(task_li_str);
     }
     $('#addListCardModal').modal('handleUpdate');
@@ -127,30 +105,12 @@ export function openConfirmation(index) {
     $("#deleteConfirmationModal").modal('show');
 }
 
-var deletebtn = document.getElementById('deleteConfirmbtn');
-deletebtn.addEventListener('click', onDeleteClick);
+const onDataDelete = () =>  $('#deleteConfirmationModal').modal('hide');
 
-function onDeleteClick(e) {
-    $('#cardList').empty();
-    store.dispatch({type: 'DELETE_CARD', id:Number(deleteIndex)});
-    todoListModalService.deleteCardData(onDataDelete, deleteIndex);
-}
+const onDataSave = () => $('#addListCardModal').modal('hide');
 
-function onDataDelete() {
-    $('#deleteConfirmationModal').modal('hide');
-    //getCardsService.getCards();
-}
-
-function onDataSave() {
-    $('#addListCardModal').modal('hide');
-    //getCardsService.getCards();
-}
-
-$('#addListCardModal').on('shown.bs.modal', function () {
-    $('#todoListTitle').trigger('focus')
-});
-
-$('#addListCardModal').on('hidden.bs.modal', function (e) {
+$(document).on('shown.bs.modal', '#addListCardModal', () => $('#todoListTitle').trigger('focus'));
+$(document).on('hidden.bs.modal', '#addListCardModal', () => {
     editMode = false;
     editModeId = undefined;
     deleteIndex = undefined;
@@ -160,8 +120,7 @@ $('#addListCardModal').on('hidden.bs.modal', function (e) {
     $('#addItem').val('');
 });
 
-var saveNewCardBtn = document.getElementById('saveCardBtn');
-saveNewCardBtn.addEventListener('click', onSaveNewCardBtnClick);
+$(document).on('click','#saveCardBtn',onSaveNewCardBtnClick );
 
 $(document).on("click", ".deleteItem", function (e) {
     let deleteItemId = $(e.currentTarget).attr('id');
@@ -176,8 +135,17 @@ $(document).on("change", ".checkboxPopup", function (e) {
     timeStampObj[$(e.currentTarget).attr('id')] = Date.now();
 });
 
-$('#addItem').keypress(function (e) {
+$(document).on("keypress", "#addItem", function (e) {
     if (e.keyCode == 13) {
         onAddBtnClick();
     }
 });
+
+$(document).on('click', '#deleteConfirmbtn', onDeleteClick);
+
+export function onDeleteClick(e) {
+    $('#cardList').empty();
+    store.dispatch({type: 'DELETE_CARD', id:Number(deleteIndex)});
+    todoListModalService.deleteCardData(onDataDelete, deleteIndex);
+}
+

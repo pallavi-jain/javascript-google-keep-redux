@@ -2,8 +2,9 @@ var $ = require('jquery');
 import { openEditModal, openConfirmation } from './toDoListModal';
 import * as saveCardState from '../service/saveCardState';
 import {store} from '../index';
+import * as masterRenderer from '../view/masterRender';
 
-export var cardsData = {};
+export let cardsData = {};
 export function renderCards(){
     let currentState = store.getState();
     let myCards = currentState.cards;
@@ -14,7 +15,6 @@ export function renderCards(){
         addCard(card);
         cardsData[card.id] = card;
     }
-
 }
 
 export function addCard(cardData) {   
@@ -30,19 +30,7 @@ export function addCard(cardData) {
     cardBody.className = 'card-body';
     cardBody.setAttribute('id', 'card-body_' + cardId);
     card.appendChild(cardBody);
-    let headerStr = `<div class="container">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <h5>${cardData.card.name}</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <a role="button" class="btn pl-0 pr-0" aria-label="edit" id="card-edit_${cardId}">
-                                    <i class="far fa-edit"></i></a>
-                                <a role="button" class="btn pl-0 pr-0" aria-label="delete" id="card-delete_${cardId}">
-                                    <i class="fas fa-trash-alt"></i></a>
-                            </div>
-                        </div>
-                        </div>`;
+    let headerStr = masterRenderer.cardHeader(cardData.card.name,cardId);
     $(cardBody).append(headerStr);
 
     let todoList = document.createElement('ul');
@@ -71,14 +59,15 @@ export function addCard(cardData) {
     card.appendChild(divFooter);
     cardHolder.appendChild(card);
 
-
-    $(document).on("click", "a#" + editId, function (e) {
+    const editBtnId = 'card-edit_' + cardId;
+    $(document).on("click", "a#" + editBtnId, function (e) {
         let editId = $(this).attr('id');
         let index = editId.split('_')[1];
         openEditModal(index);
     });
 
-    $(document).on("click", "a#" + deleteId, function (e) {
+    const deleteBtnId = 'card-delete_'+cardId;
+    $(document).on("click", "a#" + deleteBtnId, function (e) {
         let deleteId = $(this).attr('id');
         let index = deleteId.split('_')[1];
         openConfirmation(index);
