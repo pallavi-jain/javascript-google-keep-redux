@@ -7,7 +7,8 @@ export const todo = (itemIndex, taskItem) => `<li class="mb-2 ml-4" id="li_${ite
     </div>
 </li>`;
 
-export const todoEdit = (id_suffix, taskItem, isChecked = '') => `<li class="mb-2 ml-4" id="li_${id_suffix}">
+export function todoEdit(id_suffix, taskItem, isChecked = '', dateAttr) { 
+    return `<li class="mb-2 ml-4" id="li_${id_suffix}" data-createDate="${dateAttr}">
                             <div class="row">
                                 <div class="col-md-11">
                                     <input type="checkbox" id="check_${id_suffix}" ${isChecked} class="form-check-input mt-3 checkboxPopup">
@@ -15,6 +16,7 @@ export const todoEdit = (id_suffix, taskItem, isChecked = '') => `<li class="mb-
                                 <div class="col-md-1 pl-0"><button id="removeBtn_${id_suffix}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
                             </div></div>
                             </li>`;
+}
 
 export const cardHeader = (name, cardId) => `<div class="container">
     <div class="row">

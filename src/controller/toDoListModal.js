@@ -75,6 +75,9 @@ trim();
 
             taskObj.checked = $(`#${checkId}`).is(":checked");
             taskObj.date = timeStampObj[checkId] ? timeStampObj[checkId] : Number($(this).attr('data-createDate'));
+            if (!taskObj.date) {
+                taskObj.date = Date.now();
+            }
             taskObj.taskName = String($(`#${inputId}`).val()).trim();
             cardInfo.data.push(taskObj);
             cardInfo.edited = true;
@@ -112,8 +115,10 @@ export function openEditModal(index) {
     for (let i = 0; i < cardInfo.card.data.length; i++) {
         const element = cardInfo.card.data[i],
          id_suffix = `${index}_${i}`,
-         isChecked = element.checked ? 'checked' : '',
-         task_li_str = masterRenderer.todoEdit(id_suffix, element.taskName, isChecked);
+         isChecked = element.checked ? 'checked' : '';
+         const dateAttr = element.date ? element.date : cardInfo.date;
+
+         const task_li_str = masterRenderer.todoEdit(id_suffix, element.taskName, isChecked, dateAttr);
 
         $('ul#taskList-ul').append(task_li_str);
     }
