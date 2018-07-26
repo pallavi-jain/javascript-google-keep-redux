@@ -1,7 +1,6 @@
   
   
-  export default function cards(state = [], action) {
-    let newState = [];  
+  export default function cards(state = [], action) {  
 
     switch (action.type) {
 
@@ -16,11 +15,9 @@
              return state.map((card) => card.id === action.card.id ? action.card : card);
              
         case 'REORDER_CARDS':
-            
-            newState = newState.concat(state);
 
              
-return newState.sort((a, b) => a.card.order - b.card.order);
+return [...state].sort((a, b) => a.card.order - b.card.order);
              
         default:
             return state;

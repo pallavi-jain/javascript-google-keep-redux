@@ -71,7 +71,7 @@ export function addCard(cardData) {
 
     $(document).on("click", `a#${editBtnId}`, function () {
         const editId = $(this).attr('id'),
-         index = editId.split('_')[1];
+         [, index] = editId.split('_');
 
         openEditModal(index);
     });
@@ -80,7 +80,7 @@ export function addCard(cardData) {
 
     $(document).on("click", `a#${deleteBtnId}`, function () {
         const deleteId = $(this).attr('id'),
-         index = deleteId.split('_')[1];
+         [, index] = deleteId.split('_');
 
         openConfirmation(index);
     });

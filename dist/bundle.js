@@ -21048,26 +21048,36 @@ module.exports = function(originalModule) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _service_getCards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./service/getCards */ "./src/service/getCards.js");
-/* harmony import */ var _view_masterRender__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./view/masterRender */ "./src/view/masterRender.js");
-var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jquery_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery-ui */ "./node_modules/jquery-ui/ui/widget.js");
+/* harmony import */ var jquery_ui__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery_ui__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var jquery_ui_ui_widgets_sortable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery-ui/ui/widgets/sortable */ "./node_modules/jquery-ui/ui/widgets/sortable.js");
+/* harmony import */ var jquery_ui_ui_widgets_sortable__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery_ui_ui_widgets_sortable__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var jquery_ui_ui_disable_selection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jquery-ui/ui/disable-selection */ "./node_modules/jquery-ui/ui/disable-selection.js");
+/* harmony import */ var jquery_ui_ui_disable_selection__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jquery_ui_ui_disable_selection__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _service_getCards__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./service/getCards */ "./src/service/getCards.js");
+/* harmony import */ var _view_masterRender__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./view/masterRender */ "./src/view/masterRender.js");
 
-__webpack_require__(/*! jquery-ui */ "./node_modules/jquery-ui/ui/widget.js");
-__webpack_require__(/*! jquery-ui/ui/widgets/sortable */ "./node_modules/jquery-ui/ui/widgets/sortable.js");
-__webpack_require__(/*! jquery-ui/ui/disable-selection */ "./node_modules/jquery-ui/ui/disable-selection.js");
+window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a;
 
 
-$(document).ready(function () {
-    $('body').append(_view_masterRender__WEBPACK_IMPORTED_MODULE_1__["addCardModal"]());
-    $('body').append(_view_masterRender__WEBPACK_IMPORTED_MODULE_1__["addOpenConfirmation"]());
-    _service_getCards__WEBPACK_IMPORTED_MODULE_0__["getCards"]();
+
+
+
+
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').append(_view_masterRender__WEBPACK_IMPORTED_MODULE_5__["addCardModal"]());
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').append(_view_masterRender__WEBPACK_IMPORTED_MODULE_5__["addOpenConfirmation"]());
+    _service_getCards__WEBPACK_IMPORTED_MODULE_4__["getCards"]();
 });
 
-$(function () {
-    $("#taskList-ul").sortable();
-    $("#taskList-ul").disableSelection();
-    $("#cardList").sortable({});
-    $("#cardList").disableSelection();
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#taskList-ul").sortable();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#taskList-ul").disableSelection();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#cardList").sortable({});
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#cardList").disableSelection();
 });
 
 /***/ }),
@@ -21084,24 +21094,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cardsData", function() { return cardsData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderCards", function() { return renderCards; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCard", function() { return addCard; });
-/* harmony import */ var _toDoListModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDoListModal */ "./src/controller/toDoListModal.js");
-/* harmony import */ var _service_saveCardState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/saveCardState */ "./src/service/saveCardState.js");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../index */ "./src/index.js");
-/* harmony import */ var _view_masterRender__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../view/masterRender */ "./src/view/masterRender.js");
-var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _toDoListModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDoListModal */ "./src/controller/toDoListModal.js");
+/* harmony import */ var _service_saveCardState__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../service/saveCardState */ "./src/service/saveCardState.js");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../index */ "./src/index.js");
+/* harmony import */ var _view_masterRender__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../view/masterRender */ "./src/view/masterRender.js");
 
 
 
 
 
-let cardsData = {};
+
+const cardsData = {};
 function renderCards() {
-    let currentState = _index__WEBPACK_IMPORTED_MODULE_2__["store"].getState();
-    let myCards = currentState.cards;
-    $('#cardList').empty();
+    const currentState = _index__WEBPACK_IMPORTED_MODULE_3__["store"].getState(),
+          myCards = currentState.cards;
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cardList').empty();
     for (let index = 0; index < myCards.length; index++) {
         const card = myCards[index];
-        //cardListData[card.id] = card;
+        // CardListData[card.id] = card;
+
         addCard(card);
         cardsData[card.id] = card;
     }
@@ -21109,29 +21123,32 @@ function renderCards() {
 
 function addCard(cardData) {
 
-    const cardId = cardData.id;
+    const cardId = cardData.id,
+          cardHolder = document.getElementById('cardList'),
+          card = document.createElement('div');
 
-    let cardHolder = document.getElementById('cardList');
-    let card = document.createElement('div');
-    let id = 'card_' + cardId;
     card.setAttribute('id', cardId);
     card.className = 'card';
-    let cardBody = document.createElement('div');
-    cardBody.className = 'card-body';
-    cardBody.setAttribute('id', 'card-body_' + cardId);
-    card.appendChild(cardBody);
-    let headerStr = _view_masterRender__WEBPACK_IMPORTED_MODULE_3__["cardHeader"](cardData.card.name, cardId);
-    $(cardBody).append(headerStr);
+    const cardBody = document.createElement('div');
 
-    let todoList = document.createElement('ul');
+    cardBody.className = 'card-body';
+    cardBody.setAttribute('id', `card-body_${cardId}`);
+    card.appendChild(cardBody);
+    const headerStr = _view_masterRender__WEBPACK_IMPORTED_MODULE_4__["cardHeader"](cardData.card.name, cardId);
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(cardBody).append(headerStr);
+
+    const todoList = document.createElement('ul');
+
     cardBody.appendChild(todoList);
-    let task = cardData.card.data;
+    const task = cardData.card.data;
 
     for (let index = 0; index < task.length; index++) {
-        const element = task[index];
-        let listitem = document.createElement('li');
-        let checkLabel = document.createElement('label');
-        let checkbox = document.createElement('input');
+        const element = task[index],
+              listitem = document.createElement('li'),
+              checkLabel = document.createElement('label'),
+              checkbox = document.createElement('input');
+
         checkbox.setAttribute('type', 'checkbox');
         checkbox.className = 'form-check-input';
         checkbox.checked = element.checked;
@@ -21140,39 +21157,48 @@ function addCard(cardData) {
         listitem.appendChild(checkLabel);
         todoList.appendChild(listitem);
     }
-    let divFooter = document.createElement('div');
+    const divFooter = document.createElement('div');
+
     divFooter.className = 'card-footer text-muted';
-    let footerText = cardData.card.edited ? 'Updated on ' : 'Created on ';
-    const date = new Date(cardData.card.date);
-    let dateString = date.toDateString() + ' ' + date.toLocaleTimeString();
+    const footerText = cardData.card.edited ? 'Updated on ' : 'Created on ',
+          date = new Date(cardData.card.date),
+          dateString = `${date.toDateString()} ${date.toLocaleTimeString()}`;
+
     divFooter.appendChild(document.createTextNode(footerText + dateString));
     card.appendChild(divFooter);
     cardHolder.appendChild(card);
 
-    const editBtnId = 'card-edit_' + cardId;
-    $(document).on("click", "a#" + editBtnId, function (e) {
-        let editId = $(this).attr('id');
-        let index = editId.split('_')[1];
-        Object(_toDoListModal__WEBPACK_IMPORTED_MODULE_0__["openEditModal"])(index);
+    const editBtnId = `card-edit_${cardId}`;
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("click", `a#${editBtnId}`, function () {
+        const editId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('id'),
+              [, index] = editId.split('_');
+
+        Object(_toDoListModal__WEBPACK_IMPORTED_MODULE_1__["openEditModal"])(index);
     });
 
-    const deleteBtnId = 'card-delete_' + cardId;
-    $(document).on("click", "a#" + deleteBtnId, function (e) {
-        let deleteId = $(this).attr('id');
-        let index = deleteId.split('_')[1];
-        Object(_toDoListModal__WEBPACK_IMPORTED_MODULE_0__["openConfirmation"])(index);
+    const deleteBtnId = `card-delete_${cardId}`;
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("click", `a#${deleteBtnId}`, function () {
+        const deleteId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('id'),
+              [, index] = deleteId.split('_');
+
+        Object(_toDoListModal__WEBPACK_IMPORTED_MODULE_1__["openConfirmation"])(index);
     });
 }
 
-$("#cardList").on("sortstop", function (event, ui) {
-    let listArr = [];
-    $("#cardList .card").each(function (index) {
-        cardsData[$(this).attr('id')].card.order = index + 1;
-        let cardObj = cardsData[$(this).attr('id')];
+jquery__WEBPACK_IMPORTED_MODULE_0___default()("#cardList").on("sortstop", function () {
+    const listArr = [];
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#cardList .card").each(function (index) {
+        cardsData[jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('id')].card.order = index + 1;
+        const cardObj = cardsData[jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('id')];
+
         listArr.push(cardObj);
-        _service_saveCardState__WEBPACK_IMPORTED_MODULE_1__["saveCardState"]($(this).attr('id'), cardObj);
+        _service_saveCardState__WEBPACK_IMPORTED_MODULE_2__["saveCardState"](jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('id'), cardObj);
     });
-    _index__WEBPACK_IMPORTED_MODULE_2__["store"].dispatch({ type: 'REORDER_CARDS', card: listArr });
+    _index__WEBPACK_IMPORTED_MODULE_3__["store"].dispatch({ "type": 'REORDER_CARDS',
+        "card": listArr });
 });
 
 /***/ }),
@@ -21191,73 +21217,96 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openEditModal", function() { return openEditModal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openConfirmation", function() { return openConfirmation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onDeleteClick", function() { return onDeleteClick; });
-/* harmony import */ var _service_toDoListModalService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../service/toDoListModalService */ "./src/service/toDoListModalService.js");
-/* harmony import */ var _service_getCards__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../service/getCards */ "./src/service/getCards.js");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../index */ "./src/index.js");
-/* harmony import */ var _view_masterRender__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../view/masterRender */ "./src/view/masterRender.js");
-var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-__webpack_require__(/*! jquery-ui */ "./node_modules/jquery-ui/ui/widget.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jquery_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery-ui */ "./node_modules/jquery-ui/ui/widget.js");
+/* harmony import */ var jquery_ui__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery_ui__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var jquery_ui_ui_widgets_sortable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery-ui/ui/widgets/sortable */ "./node_modules/jquery-ui/ui/widgets/sortable.js");
+/* harmony import */ var jquery_ui_ui_widgets_sortable__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery_ui_ui_widgets_sortable__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var jquery_ui_ui_disable_selection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jquery-ui/ui/disable-selection */ "./node_modules/jquery-ui/ui/disable-selection.js");
+/* harmony import */ var jquery_ui_ui_disable_selection__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jquery_ui_ui_disable_selection__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _service_toDoListModalService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../service/toDoListModalService */ "./src/service/toDoListModalService.js");
+/* harmony import */ var _service_getCards__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../service/getCards */ "./src/service/getCards.js");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../index */ "./src/index.js");
+/* harmony import */ var _view_masterRender__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../view/masterRender */ "./src/view/masterRender.js");
 
 
 
 
 
-let editModeId;
-let editMode = false;
-let timeStampObj = {};
-var deleteIndex;
-$('#addNewItem').click(onAddBtnClick);
+
+
+
+
+let editModeId = '',
+    editMode = false,
+    timeStampObj = {},
+    deleteIndex = '';
+
 function onAddBtnClick() {
-    let itemIndex = $("ul#taskList-ul").children().length + 1;
-    let taskItem = $('#addItem').val().trim();
+    const itemIndex = jquery__WEBPACK_IMPORTED_MODULE_0___default()("ul#taskList-ul").children().length + 1,
+          taskItem = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#addItem').val().trim();
+
     if (taskItem) {
-        let task_li_str;
+        let task_li_str = '';
+
         if (!editMode) {
-            task_li_str = _view_masterRender__WEBPACK_IMPORTED_MODULE_3__["todo"](itemIndex, taskItem);
+            task_li_str = _view_masterRender__WEBPACK_IMPORTED_MODULE_7__["todo"](itemIndex, taskItem);
         } else {
-            const id_suffix = editModeId + '_' + itemIndex;
-            let taskItem = $('#addItem').val().trim();
-            task_li_str = _view_masterRender__WEBPACK_IMPORTED_MODULE_3__["todoEdit"](id_suffix, taskItem);
+            const id_suffix = `${editModeId}_${itemIndex}`;
+
+            task_li_str = _view_masterRender__WEBPACK_IMPORTED_MODULE_7__["todoEdit"](id_suffix, taskItem);
         }
-        $('ul#taskList-ul').append(task_li_str);
-        $('#addListCardModal').modal('handleUpdate');
-        $('#addItem').val('');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('ul#taskList-ul').append(task_li_str);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#addListCardModal').modal('handleUpdate');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#addItem').val('');
     }
 }
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('#addNewItem').click(onAddBtnClick);
 
 function onSaveNewCardBtnClick() {
-    let cardInfo = {};
+    const cardInfo = {};
+
     cardInfo.date = Date.now();
-    cardInfo.name = $('#todoListTitle').val().trim();
+    cardInfo.name = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#todoListTitle').val().trim();
     cardInfo.data = [];
-    let cardWrap = {};
-    let taskObj, liId, splitStr, substr, taskId;
+    const cardWrap = {};
+    let liId = '',
+        splitStr = '',
+        substr = '',
+        taskId = '',
+        taskObj = {};
+
     if (!editMode) {
-        $("ul#taskList-ul li").each(function (index) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()("ul#taskList-ul li").each(function () {
             taskObj = {};
             taskObj.checked = false;
-            liId = $(this).attr('id');
+            liId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('id');
             splitStr = liId.split('_');
             splitStr.shift();
             substr = splitStr.join('_');
-            taskId = 'task_' + substr;
-            taskObj.taskName = String($('#' + taskId + ' span').text()).trim();
+            taskId = `task_${substr}`;
+            taskObj.taskName = String(jquery__WEBPACK_IMPORTED_MODULE_0___default()(`#${taskId} span`).text()).trim();
             taskObj.date = Date.now();
             cardInfo.data.push(taskObj);
-            cardInfo.order = _service_getCards__WEBPACK_IMPORTED_MODULE_1__["totalCards"] + 1;
+            cardInfo.order = _service_getCards__WEBPACK_IMPORTED_MODULE_5__["totalCards"] + 1;
         });
     } else {
-        $("ul#taskList-ul li").each(function (index) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()("ul#taskList-ul li").each(function () {
             taskObj = {};
-            liId = $(this).attr('id');
+            liId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('id');
             splitStr = liId.split('_');
             splitStr.shift();
-            let id_substr = splitStr.join('_');
-            const checkId = 'check_' + id_substr;
-            const inputId = 'input_' + id_substr;
-            taskObj.checked = $('#' + checkId).is(":checked");
-            taskObj.date = timeStampObj[checkId] ? timeStampObj[checkId] : Number($(this).attr('data-createDate'));
-            taskObj.taskName = String($('#' + inputId).val()).trim();
+            const id_substr = splitStr.join('_'),
+                  checkId = `check_${id_substr}`,
+                  inputId = `input_${id_substr}`;
+
+            taskObj.checked = jquery__WEBPACK_IMPORTED_MODULE_0___default()(`#${checkId}`).is(":checked");
+            taskObj.date = timeStampObj[checkId] ? timeStampObj[checkId] : Number(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('data-createDate'));
+            if (!taskObj.date) {
+                taskObj.date = Date.now();
+            }
+            taskObj.taskName = String(jquery__WEBPACK_IMPORTED_MODULE_0___default()(`#${inputId}`).val()).trim();
             cardInfo.data.push(taskObj);
             cardInfo.edited = true;
             cardWrap.id = Number(splitStr[0]);
@@ -21265,85 +21314,95 @@ function onSaveNewCardBtnClick() {
     }
 
     cardWrap.card = cardInfo;
-    let state = _index__WEBPACK_IMPORTED_MODULE_2__["store"].getState();
-    $('#cardList').empty();
+    const state = _index__WEBPACK_IMPORTED_MODULE_6__["store"].getState();
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cardList').empty();
 
     if (!editMode) {
-        let cardId = state.cards.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1;
+        const cardId = state.cards.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1;
+
         cardWrap.id = cardId;
-        _index__WEBPACK_IMPORTED_MODULE_2__["store"].dispatch({ type: 'ADD_CARD', card: cardWrap });
+        _index__WEBPACK_IMPORTED_MODULE_6__["store"].dispatch({ "type": 'ADD_CARD',
+            "card": cardWrap });
     } else {
-        _index__WEBPACK_IMPORTED_MODULE_2__["store"].dispatch({ type: 'EDIT_CARD', card: cardWrap });
+        _index__WEBPACK_IMPORTED_MODULE_6__["store"].dispatch({ "type": 'EDIT_CARD',
+            "card": cardWrap });
     }
-    _service_getCards__WEBPACK_IMPORTED_MODULE_1__["cardListData"][cardWrap.id] = cardWrap;
-    _service_toDoListModalService__WEBPACK_IMPORTED_MODULE_0__["addCardData"](cardInfo, onDataSave, editModeId);
+    _service_getCards__WEBPACK_IMPORTED_MODULE_5__["cardListData"][cardWrap.id] = cardWrap;
+    _service_toDoListModalService__WEBPACK_IMPORTED_MODULE_4__["addCardData"](cardInfo, onDataSave, editModeId);
 }
 
 function openEditModal(index) {
     editMode = true;
     editModeId = index;
-    let cardInfo = _service_getCards__WEBPACK_IMPORTED_MODULE_1__["cardListData"][index];
-    $('#todoListTitle').val(cardInfo.card.name);
-    $("ul#taskList-ul").empty();
+    const cardInfo = _service_getCards__WEBPACK_IMPORTED_MODULE_5__["cardListData"][index];
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#todoListTitle').val(cardInfo.card.name);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("ul#taskList-ul").empty();
 
     for (let i = 0; i < cardInfo.card.data.length; i++) {
-        const element = cardInfo.card.data[i];
-        const id_suffix = index + '_' + i;
-        let isChecked = element.checked ? 'checked' : '';
-        let task_li_str = _view_masterRender__WEBPACK_IMPORTED_MODULE_3__["todoEdit"](id_suffix, element.taskName, isChecked);
-        $('ul#taskList-ul').append(task_li_str);
+        const element = cardInfo.card.data[i],
+              id_suffix = `${index}_${i}`,
+              isChecked = element.checked ? 'checked' : '';
+        const dateAttr = element.date ? element.date : cardInfo.date;
+
+        const task_li_str = _view_masterRender__WEBPACK_IMPORTED_MODULE_7__["todoEdit"](id_suffix, element.taskName, isChecked, dateAttr);
+
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('ul#taskList-ul').append(task_li_str);
     }
-    $('#addListCardModal').modal('handleUpdate');
-    $('#addListCardModal').modal('show');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#addListCardModal').modal('handleUpdate');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#addListCardModal').modal('show');
 }
 
 function openConfirmation(index) {
     deleteIndex = index;
-    $("#deleteConfirmationModal").modal('show');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#deleteConfirmationModal").modal('show');
 }
 
-const onDataDelete = () => $('#deleteConfirmationModal').modal('hide');
+const onDataDelete = () => jquery__WEBPACK_IMPORTED_MODULE_0___default()('#deleteConfirmationModal').modal('hide'),
+      onDataSave = () => jquery__WEBPACK_IMPORTED_MODULE_0___default()('#addListCardModal').modal('hide');
 
-const onDataSave = () => $('#addListCardModal').modal('hide');
-
-$(document).on('shown.bs.modal', '#addListCardModal', () => $('#todoListTitle').trigger('focus'));
-$(document).on('hidden.bs.modal', '#addListCardModal', () => {
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('shown.bs.modal', '#addListCardModal', () => jquery__WEBPACK_IMPORTED_MODULE_0___default()('#todoListTitle').trigger('focus'));
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('hidden.bs.modal', '#addListCardModal', () => {
     editMode = false;
     editModeId = undefined;
     deleteIndex = undefined;
     timeStampObj = {};
-    $('#taskList-ul').empty();
-    $('#todoListTitle').val('');
-    $('#addItem').val('');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#taskList-ul').empty();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#todoListTitle').val('');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#addItem').val('');
 });
 
-$(document).on('click', '#saveCardBtn', onSaveNewCardBtnClick);
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '#saveCardBtn', onSaveNewCardBtnClick);
 
-$(document).on("click", ".deleteItem", function (e) {
-    let deleteItemId = $(e.currentTarget).attr('id');
-    let splitStr = deleteItemId.split('_');
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("click", ".deleteItem", function (e) {
+    const deleteItemId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.currentTarget).attr('id'),
+          splitStr = deleteItemId.split('_');
+
     splitStr.shift();
-    let substr = splitStr.join('_');
-    let liId = 'li_' + substr;
-    $('#' + liId).remove();
+    const substr = splitStr.join('_'),
+          liId = `li_${substr}`;
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(`#${liId}`).remove();
 });
 
-$(document).on("change", ".checkboxPopup", function (e) {
-    timeStampObj[$(e.currentTarget).attr('id')] = Date.now();
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("change", ".checkboxPopup", function (e) {
+    timeStampObj[jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.currentTarget).attr('id')] = Date.now();
 });
 
-$(document).on("keypress", "#addItem", function (e) {
-    if (e.keyCode == 13) {
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("keypress", "#addItem", function (e) {
+    if (e.keyCode === 13) {
         onAddBtnClick();
     }
 });
 
-$(document).on('click', '#deleteConfirmbtn', onDeleteClick);
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '#deleteConfirmbtn', onDeleteClick);
 
-function onDeleteClick(e) {
-    $('#cardList').empty();
-    _index__WEBPACK_IMPORTED_MODULE_2__["store"].dispatch({ type: 'DELETE_CARD', id: Number(deleteIndex) });
-    _service_toDoListModalService__WEBPACK_IMPORTED_MODULE_0__["deleteCardData"](onDataDelete, deleteIndex);
+function onDeleteClick() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cardList').empty();
+    _index__WEBPACK_IMPORTED_MODULE_6__["store"].dispatch({ "type": 'DELETE_CARD',
+        "id": Number(deleteIndex) });
+    _service_toDoListModalService__WEBPACK_IMPORTED_MODULE_4__["deleteCardData"](onDataDelete, deleteIndex);
 }
 
 /***/ }),
@@ -21366,10 +21425,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_sass_styles_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../styles/sass/styles.scss */ "./styles/sass/styles.scss");
 /* harmony import */ var _styles_sass_styles_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_styles_sass_styles_scss__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app */ "./src/app.js");
-var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-__webpack_require__(/*! jquery-ui */ "./node_modules/jquery-ui/ui/widget.js");
-__webpack_require__(/*! jquery-ui/ui/widgets/sortable */ "./node_modules/jquery-ui/ui/widgets/sortable.js");
-__webpack_require__(/*! jquery-ui/ui/disable-selection */ "./node_modules/jquery-ui/ui/disable-selection.js");
+
 
 
 
@@ -21399,7 +21455,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function cards(state = [], action) {
-    let newState = [];
+
     switch (action.type) {
 
         case 'ADD_CARD':
@@ -21413,9 +21469,8 @@ function cards(state = [], action) {
             return state.map(card => card.id === action.card.id ? action.card : card);
 
         case 'REORDER_CARDS':
-            newState = [];
-            let tmp = newState.concat(state);
-            return tmp.sort((a, b) => a.card.order - b.card.order);
+
+            return [...state].sort((a, b) => a.card.order - b.card.order);
 
         default:
             return state;
@@ -21438,14 +21493,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+function lastAction(state = null, action) {
+  return state || action;
+}
+
 const cardsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-    cards: _cards__WEBPACK_IMPORTED_MODULE_1__["default"], lastAction: lastAction
+  cards: _cards__WEBPACK_IMPORTED_MODULE_1__["default"],
+  lastAction
 
 });
-
-function lastAction(state = null, action) {
-    return action;
-}
 
 /* harmony default export */ __webpack_exports__["default"] = (cardsReducer);
 
@@ -21463,35 +21519,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cardListData", function() { return cardListData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "totalCards", function() { return totalCards; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCards", function() { return getCards; });
-/* harmony import */ var _controller_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../controller/card */ "./src/controller/card.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../index */ "./src/index.js");
-/* harmony import */ var _reducers_cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/cards */ "./src/reducers/cards.js");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 
-
-var cardListData = {};
-var totalCards = 0;
-
+const cardListData = {};
+let totalCards = 0;
 function getCards() {
 
-    $.get("http://localhost:3000/lists", function (data, status) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://localhost:3000/lists", function (data) {
 
-        let myLists = data;
-        $('#cardList').empty();
+        const myLists = data;
+
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cardList').empty();
         totalCards = myLists.length;
         myLists.sort(function (a, b) {
             return a.card.order - b.card.order;
         });
 
-        _index__WEBPACK_IMPORTED_MODULE_1__["store"].dispatch({ type: 'GET_CARDS', card: myLists });
+        _index__WEBPACK_IMPORTED_MODULE_1__["store"].dispatch({ "type": 'GET_CARDS',
+            "card": myLists });
 
         for (let index = 0; index < myLists.length; index++) {
             const card = myLists[index];
+
             cardListData[card.id] = card;
-            // addCard(card);
-            // cardsData[card.id] = card;
+            // AddCard(card);
+            // CardsData[card.id] = card;
         }
     });
 }
@@ -21508,23 +21563,34 @@ function getCards() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveCardState", function() { return saveCardState; });
-var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Adds two numbers together.
+ * @param {int} id The first number.
+ * @param {object} card/Info The second number.
+ * @returns {object} The sum of the two numbers.
+ */
+
 function saveCardState(id, cardInfo) {
 
-    var url = "http://localhost:3000/lists/" + id,
-        type = "PUT";
-    $.ajax({
-        url: url,
-        type: type,
-        data: JSON.stringify(cardInfo),
-        headers: {
-            "content-type": "application/json"
-        },
-        success: function (result) {
-            //Write your code here
+  const type = "PUT",
+        url = `http://localhost:3000/lists/${id}`;
 
-        }
-    });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+    url,
+    type,
+    "data": JSON.stringify(cardInfo),
+    "headers": {
+      "content-type": "application/json"
+    },
+    "success"() {
+      // Write your code here
+
+    }
+  });
 }
 
 /***/ }),
@@ -21540,50 +21606,67 @@ function saveCardState(id, cardInfo) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCardData", function() { return addCardData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCardData", function() { return deleteCardData; });
-var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 
+
+/**
+ * Save the card data.
+ * @param {object} cardObj The first number.
+ * @param {object} callback/Info The second number.
+ * @param {int} id sum of the two numbers.
+ */
 function addCardData(cardObj, callback, id) {
 
-    var url = "http://localhost:3000/lists";
-    var type = "POST";
-    if (id) {
-        url = "http://localhost:3000/lists/" + id;
-        type = "PATCH";
+  let type = "POST",
+      url = "http://localhost:3000/lists";
+
+  if (id) {
+    type = "PATCH";
+    url = `http://localhost:3000/lists/${id}`;
+  }
+
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+    url,
+    type,
+    "data": JSON.stringify({ "card": cardObj }),
+    // DataType: "json",
+    "headers": {
+      "content-type": "application/json"
+
+    },
+
+    /**
+    * Success callback.
+    * @param {object} result The first number.
+    * @param {object} callback/Info The second number.
+    * 
+    */
+    "success"(result) {
+      // Write your code here
+      callback(result);
     }
-
-    $.ajax({
-        url: url,
-        type: type,
-        data: JSON.stringify({ "card": cardObj }),
-        //dataType: "json",
-        headers: {
-            "content-type": "application/json"
-
-        },
-        success: function (result) {
-            //Write your code here
-            callback(result);
-        }
-    });
+  });
 }
 
 function deleteCardData(callback, id) {
-    var type = 'DELETE';
-    var url = "http://localhost:3000/lists/" + id;
-    $.ajax({
-        url: url,
-        type: type,
+  const type = 'DELETE',
+        url = `http://localhost:3000/lists/${id}`;
 
-        //dataType: "json",
-        headers: {
-            "content-type": "application/json"
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+    url,
+    type,
 
-        },
-        success: function (result) {
-            //Write your code here
-            callback(result);
-        }
-    });
+    // DataType: "json",
+    "headers": {
+      "content-type": "application/json"
+
+    },
+    "success"(result) {
+      // Write your code here
+      callback(result);
+    }
+  });
 }
 
 /***/ }),
@@ -21602,8 +21685,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cardHeader", function() { return cardHeader; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCardModal", function() { return addCardModal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addOpenConfirmation", function() { return addOpenConfirmation; });
-let todo = (itemIndex, taskItem) => {
-    return `<li class="mb-2 ml-4" id="li_${itemIndex}">
+const todo = (itemIndex, taskItem) => `<li class="mb-2 ml-4" id="li_${itemIndex}">
 <div class="row">
     <div id="task_${itemIndex}" class="task col-sm-11 modalInput">
         <span>${taskItem}</span></div>
@@ -21611,10 +21693,9 @@ let todo = (itemIndex, taskItem) => {
         <button id="removeBtn_${itemIndex}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button></div>
     </div>
 </li>`;
-};
 
-let todoEdit = (id_suffix, taskItem, isChecked = '') => {
-    return `<li class="mb-2 ml-4" id="li_${id_suffix}">
+function todoEdit(id_suffix, taskItem, isChecked = '', dateAttr) {
+    return `<li class="mb-2 ml-4" id="li_${id_suffix}" data-createDate="${dateAttr}">
                             <div class="row">
                                 <div class="col-md-11">
                                     <input type="checkbox" id="check_${id_suffix}" ${isChecked} class="form-check-input mt-3 checkboxPopup">
@@ -21622,10 +21703,9 @@ let todoEdit = (id_suffix, taskItem, isChecked = '') => {
                                 <div class="col-md-1 pl-0"><button id="removeBtn_${id_suffix}" type="button" class="btn btn-primary btn-sm deleteItem"> X </button>
                             </div></div>
                             </li>`;
-};
+}
 
-let cardHeader = (name, cardId) => {
-    return `<div class="container">
+const cardHeader = (name, cardId) => `<div class="container">
     <div class="row">
         <div class="col-md-9">
             <h5>${name}</h5>
@@ -21638,10 +21718,8 @@ let cardHeader = (name, cardId) => {
         </div>
     </div>
     </div>`;
-};
 
-let addCardModal = () => {
-    return ` <div class="modal fade" id="addListCardModal" tabindex="-1" role="dialog" aria-labelledby="addListCardModalTitle" aria-hidden="true">
+const addCardModal = () => ` <div class="modal fade" id="addListCardModal" tabindex="-1" role="dialog" aria-labelledby="addListCardModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -21678,10 +21756,8 @@ let addCardModal = () => {
         </div>
     </div>
 </div>`;
-};
 
-let addOpenConfirmation = () => {
-    return ` <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+const addOpenConfirmation = () => ` <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -21700,7 +21776,6 @@ let addOpenConfirmation = () => {
       </div>
     </div>
   </div>`;
-};
 
 /***/ }),
 
